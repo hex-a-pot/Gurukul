@@ -8,5 +8,6 @@ router.use(bodyParser.urlencoded({limit:"30mb", extended : true}))
 
 router.post('/signup',signup);
 router.post('/signin',signin);
+// router.get('/getme',getMe);
 
 export default router;

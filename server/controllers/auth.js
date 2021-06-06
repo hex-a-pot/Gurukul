@@ -4,6 +4,34 @@ import bcrypt from 'bcrypt'
 
 import {createJWT} from '../utils/auth.js'
 
+
+//-------------------- TO UNDERSTAND BCRYPT and JWT-----------------------
+
+// const saltRounds = 10;
+// var password = "SamplePassword123"
+// const dummyUser = new User({
+//     name:"testUser",
+//     email: "dummymail@something.com",
+//     password: password
+// })
+
+// bcrypt.genSalt(saltRounds,(err,salt)=>{
+//     console.log(salt)
+//     bcrypt.hash(password,salt,(err,hash)=>{
+//         console.log(hash);
+//         bcrypt.compare(password,hash,(err,result)=>{
+//             console.log(result);
+//             let token = jwt.sign(JSON.stringify(dummyUser),process.env.TOKEN_SECRET)
+//             if(result)
+//             {
+//                 console.log('token is - '+token)
+//             }
+//         })
+//     })
+// })
+
+//---------------------------------------------------------------
+
 const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 export const signup = (req,res,next)=>{
@@ -120,7 +148,7 @@ export const signin = (req,res)=>{
                             return res.status(200).json({
                                 success:true,
                                 token:access_token,
-                                message: user
+                                message: decoded
                             })
                         }
                     })
@@ -132,3 +160,23 @@ export const signin = (req,res)=>{
         res.status(500).json({errors:err});
     })
 }
+
+
+// ---------------------- use of TOKEN-------------------------
+
+
+// export const getMe = (req,res)=>{
+//     var token = req.headers['x-access-token'];
+//     if(!token)
+//     {
+//         res.status(401).send({auth:false,message:'No token Provided!!!'})
+//     }
+//     jwt.verify(token,process.env.TOKEN_SECRET,(err,decoded)=>{
+//         if(err)
+//         res.status(500).send({auth:false,message:"Failed to authenticate token"})
+//         res.status(200).send(decoded);
+//     })
+
+// }
+
+// -------------------------------------------------------------
